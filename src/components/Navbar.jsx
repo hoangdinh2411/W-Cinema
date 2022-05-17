@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import {useState, memo, useEffect} from 'react';
 import logo from 'assets/images/logo.png';
-import {useGenres} from 'hooks';
 import {NavLink, Link} from 'react-router-dom';
+import genresList from 'assets/data/genres.json';
+
 const links = [
   {
     id: 1,
@@ -34,12 +35,14 @@ const links = [
     children: false,
   },
 ];
+
 function Navbar() {
+  
   const [showGenresList, SetShowGenresList] = useState(false);
-  const {genresList} = useGenres();
-  const formatGenreNameToPath = (gerceName) => {
-    return gerceName.toLowerCase().split(' ').join('-');
+  const formatGenreNameToPath = (genreName) => {
+    return genreName.toLowerCase().split(' ').join('-');
   };
+
   return (
     <header className='container-0 px-8 shadow mx-0 z-50 flex bg-white fixed top-0 left-0 right-0'>
       <aside className='h-20 w-32'>
@@ -67,11 +70,12 @@ function Navbar() {
                 className={`w-full text-center ${link.children ? '' : 'hover:text-sky-400 '}`}
               >
                 {link.title}
-                {link.children && genresList ? (
+                {link.children && genresList.genres ? (
                   <div
-                    className={`rounded-md ${
-                      showGenresList ? 'z-0' : '-z-10'
-                    } bg-slate-100 duration-700 opacity-${showGenresList ? '1' : '0'}  
+                    className={`rounded-md 
+                    ${showGenresList ? 'z-20' : '-z-10'}
+                     bg-slate-100 duration-700 
+                    opacity-${showGenresList ? '1' : '0'}  
                     ${showGenresList ? 'translate-y-4' : '-translate-y-60'}
                     absolute right-0 
                     top-[60px]
@@ -80,7 +84,7 @@ function Navbar() {
                     onMouseOver={link.children ? () => SetShowGenresList(true) : () => {}}
                   >
                     <div className=' grid grid-cols-5  w-full '>
-                      {genresList.map((genre) => (
+                      {genresList.genres.map((genre) => (
                         <div
                           key={genre.id}
                           className=' hover:underline text-black font-semibold text-sm hover:text-sky-400 text-left w-full h-8 p-2'
@@ -98,10 +102,9 @@ function Navbar() {
           ))}
         </ul>
       </nav>
-      <aside className='h-20  w-20 flex justify-center items-center'>
-          Login</aside>
+      <aside className='h-20  w-20 flex justify-center items-center'>Login</aside>
     </header>
   );
 }
 
-export default Navbar;
+export default memo(Navbar);

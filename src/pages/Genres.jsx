@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 function Genres() {
   return (
-    <Outlet/>
+    <h1>Genre</h1>
   )
 }
 

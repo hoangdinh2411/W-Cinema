@@ -1,10 +1,8 @@
 import {configureStore } from '@reduxjs/toolkit'
 import {Provider} from 'react-redux'
-import genresReducer from './slices/genres'
 import moviesReducer from './slices/movies'
 const store = configureStore({
     reducer:{
-        genres: genresReducer,
         movies: moviesReducer
     }
 })

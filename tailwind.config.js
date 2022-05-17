@@ -4,10 +4,8 @@ module.exports = {
     extend: {
       spacing: {
         128: '32rem',
-      
       },
       keyframes: {
-      
       },
     },
   },

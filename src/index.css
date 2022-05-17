@@ -2,18 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-  padding:0;
-  margin:0;
+* {
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
-body,html{
+body,
+html {
   line-height: 1.6;
+  background-color: #131722;
 }
 
-#root{
+#root {
   background-color: #131722;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
+}
+.slick-slide{
+  text-align: center !important;
+}
+.slick-slide >div {
+  overflow: hidden;
+  margin:auto;
+  width:90% !important;
+  height: 667px;
+  padding: 12px 0;
+}
+.slick-dots {
+  background-color: transparent;
+  width: auto;
+  position: absolute;
+  top:20px;
+  right: -50px;
+  text-align: center;
+}
+
+.slick-dots > li {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  border-radius: 6px;
+  align-items: center;
+  height: 80px;
+  width: 100px;
+  margin-bottom: 12px;
+}
+.slick-dots > li.slick-active {
+  opacity: 1;
+}
+.slick-dots > li:hover {
+  transform: scale(1.2);
+  transition: all 0.3s linear;
 }

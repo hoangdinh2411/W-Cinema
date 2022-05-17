@@ -13,7 +13,6 @@ const moviesSlice = createSlice({
       state.popular = payload;
     },
     SET_TRENDING_MOVIES: (state, {payload}) => {
-        console.log(payload)
       state.trending = payload;
     },
   },

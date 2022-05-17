@@ -1,55 +1,35 @@
 import {useMovies} from 'hooks';
-import {useState} from 'react';
+import {memo} from 'react';
+import Slider from 'react-slick';
+import {Cards} from './MyComponents';
 
 function Slides() {
   const {trendingMovies} = useMovies();
-  const [selectedFilm, setSelectedFilm] = useState(trendingMovies[0].id);
-  const [currentTranslateX, setCurrentTranslateX] = useState(0);
-  const windowWidth = window.innerWidth;
+  console.log(trendingMovies);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    appendDots: (dots) => <ul>{dots}</ul>,
+    customPaging: (i) => (
+      <img
+        className='w-full h-full object-cover'
+        src={`https://image.tmdb.org/t/p/w500` + trendingMovies[i].backdrop_path}
+        alt=''
+      />
+    ),
+  };
 
-  const handleChangeMovie=(movieId)=>{
-    const index = trendingMovies?.slice(0, 6).findIndex(movie=>movie.id === movieId)
-    setCurrentTranslateX((index+1) *windowWidth)
-  }
   return (
-    <section className={`container-0  my-20 relative`}>
-      <aside className=' z-40 relative p-4'>
-        <ul className={`inline-block w-full absolute  -translate-x-${currentTranslateX}`}>
-          {trendingMovies &&
-            trendingMovies?.slice(0, 6).map((movie) => (
-              <li
-                className={`px-2
-                h-[676px] 
-              opacity-${movie.id === selectedFilm ? '1' : '0'}  
-              object-cover cursor-pointer w-full h-full flex items-center`}
-                onClick={() => setSelectedFilm(movie)}
-              >
-                <img
-                  className='w-full h-full object-contain'
-                  src={`https://image.tmdb.org/t/p/w500` + movie.backdrop_path}
-                  alt=''
-                />
-              </li>
-            ))}
-        </ul>
-        <aside class='w-1/2 h-1/2 z-10 grid grid-cols-3 absolute right-0 bottom-0 '>
-          {trendingMovies &&
-             trendingMovies?.slice(0, 6).map((movie) => (
-              <aside
-                className='px-2 object-cover cursor-pointer w-full h-full flex items-center'
-                onClick={handleChangeMovie(movie.id)}
-              >
-                <img
-                  className='w-full h-full object-contain'
-                  src={`https://image.tmdb.org/t/p/w500` + movie.backdrop_path}
-                  alt=''
-                />
-              </aside>
-            ))}
-        </aside>
-      </aside>
-    </section>
+    <div className=' container-0 '>
+      <Slider {...settings}>
+        {trendingMovies &&
+          trendingMovies?.slice(0, 7).map((movie, index) => <Cards movie={movie} />)}
+      </Slider>
+    </div>
   );
 }
 
-export default Slides;
+export default memo(Slides);
