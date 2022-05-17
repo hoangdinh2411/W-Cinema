@@ -1,10 +1,11 @@
-import {Slides} from 'components';
+import PopularMovies from "./Home/PopularMovies";
+import Slides from "./Home/Slides";
 
 function Home() {
-
   return (
     <>
-      <Slides />
+      <Slides/>
+      <PopularMovies/>
     </>
   );
 }

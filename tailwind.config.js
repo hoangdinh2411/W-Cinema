@@ -7,6 +7,8 @@ module.exports = {
       },
       keyframes: {
       },
+      lineHeight: {
+      }
     },
   },
   plugins: [],

@@ -2,37 +2,39 @@ import React from 'react';
 import {getGenresOfMovie} from 'services/genres';
 import {getYear} from 'services/formatDate';
 import {Link} from 'react-router-dom';
-import Button from './Button';
 
-function Cards({movie}) {
+function Cards({movie, amountShowedMovies, index, ...props}) {
   return (
-    <Link to={`/movie/${movie.id}`}>
-      <div className='relative'>
+    <Link
+      to={`/movie/${movie.id}`}
+      title={movie.title}
+      className={`${
+        index + 1 > amountShowedMovies ? 'hidden' : ''
+      }   w-[160px]   mb-6 ml-1 mr-2 `}
+    >
+      <div className='  relative rounded overflow-hidden'>
+        <span className='absolute w-full h-full bg-sky-300 opacity-0 hover:opacity-20 duration-300'></span>
         <img
-          className='w-full h-full object-cover rounded-lg'
-          src={`https://image.tmdb.org/t/p/w500` + movie.backdrop_path}
+          className='w-full  h-[240px]  '
+          src={`https://image.tmdb.org/ t/p/w500` + movie.poster_path}
           alt=''
         />
-        <div className=' text-white absolute w-1/2 top-1/2 left-4 pl-5'>
-          <p className=' hover:text-sky-400 text-6xl uppercase font-bold  mb-8 tracking-wider text-left'>
+      </div>
+      <aside class='text-gray-300 h-30 w-full'>
+        <div className='mt-2'>
+          <p className='truncate text-gray-100 font-bold text-md' title={movie.title}>
             {movie.title}
           </p>
-          <p className=' hover:text-sky-400 text-md flex font-normal mb-5  text-left'>
-            <span className='h-5 mr-3 relative'>
-              {getYear(movie.release_date)}
-              <span className='block absolute top-1 -right-2  bg-white w-0.5 h-full'></span>
-            </span>
-            <ul className='hover:text-sky-400 w-auto flex-1 relative'>
-              {getGenresOfMovie(movie.genre_ids).map((item) => (
-                <li className='inline-block mr-2'>{item.name}</li>
-              ))}
-            </ul>
-          </p>
-          <div className='text-left'>
-            <Button>Watch now</Button>
-          </div>
+          <span className='mr-2'>{getYear(movie.release_date)}</span>
+          <ul className=' truncate'>
+            {getGenresOfMovie(movie.genre_ids).map((genre) => (
+              <li className=' inline-block mr-2' key={genre.id}>
+                {genre.name}
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+      </aside>
     </Link>
   );
 }
